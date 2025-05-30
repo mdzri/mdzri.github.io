@@ -164,26 +164,9 @@
             border-top: 1px solid rgba(74, 108, 247, 0.1);
         }
 
-        /* Search input */
-        .search-container {
-            margin-top: 1rem;
-        }
+        
 
-        .model-search {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(74, 108, 247, 0.2);
-            border-radius: var(--card-radius);
-            padding: 10px 16px;
-            color: var(--text);
-            font-size: 0.95rem;
-            width: 100%;
-            transition: var(--transition);
-        }
 
-        .model-search:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -209,11 +192,11 @@
 
             
             <div style="text-align: center;">
-                <a href="https://mdzr.github.io/" class="back-btn">
+                <a href="https://mdzri.github.io/" class="back-btn">
                     <svg viewBox="0 0 24 24">
                         <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                     </svg>
-                   Everything ALL Back In </>.
+                   Everything Thanks ALL For Your Feedback And Support.
                 </a>
             </div>
         </main>
@@ -223,18 +206,6 @@
         </footer>
     </div>
     
-    <script>
-        // Samsung model search functionality
-        const samsungSearch = document.getElementById('samsungSearch');
-        const samsungSearchLink = document.getElementById('samsungSearchLink');
-        
-        samsungSearch.addEventListener('input', function() {
-            if (this.value.trim() !== '') {
-                samsungSearchLink.href = `https://basezsh.blogspot.com/search?q=Samsung+${encodeURIComponent(this.value.trim())}`;
-            } else {
-                samsungSearchLink.href = 'https://basezsh.blogspot.com/search?q=';
-            }
-        });
-    </script>
+
 </body>
 </html>
