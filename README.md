@@ -58,5 +58,5 @@ We provide only **official links** and **self-extraction guides**
 ---
 
 ### 🧠 Powered by researchers
-Built by basezsh, maintained by the community.  
-Stay light. Stay fast. Stay human.
+maintained by your and the strongly community.  
+Stay light. fast. humanity.
