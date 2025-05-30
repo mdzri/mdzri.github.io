@@ -3,69 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bug Fixer / Patcher</title>
+    <title>Firmware Pro Unbrick</title>
     <style>
-        /* === NO EXTERNAL CSS === */
+        :root {
+            --primary: #0f0f13;
+            --secondary: #1a1a24;
+            --accent: #4a6cf7;
+            --accent-light: #6b84f8;
+            --text: #e0e0e8;
+            --text-light: #b0b0bc;
+            --success: #4af7b0;
+            --card-radius: 10px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
         body {
-            font-family: monospace;
-            max-width: 900px;
-            margin: 0 auto;
+            background: var(--primary);
+            color: var(--text);
+            min-height: 100vh;
             padding: 20px;
-            background: #111;
-            color: #0f0;
             line-height: 1.5;
         }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
         }
-        .box {
-            border: 1px solid #0f0;
-            padding: 15px;
-            background: #000;
+
+        .card {
+            background: var(--secondary);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            transition: var(--transition);
+            border: 1px solid rgba(74, 108, 247, 0.1);
         }
-        h1, h2, h3 { color: lime; }
-        a { color: #0f0; text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .tag { color: #888; }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(74, 108, 247, 0.3);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h3 svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent);
+        }
+
+        .firmware-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .firmware-list li {
+            margin-bottom: 0.8rem;
+        }
+
+        .firmware-list a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 0.95rem;
+        }
+
+        .firmware-list a:hover {
+            color: var(--accent-light);
+        }
+
+        .firmware-list a svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .firmware-list a:hover svg {
+            fill: var(--accent-light);
+            transform: translateX(2px);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--secondary);
+            color: var(--accent);
+            padding: 10px 20px;
+            border-radius: var(--card-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            margin: 2rem auto;
+            border: 1px solid rgba(74, 108, 247, 0.1);
+        }
+
+        .back-btn:hover {
+            background: rgba(74, 108, 247, 0.1);
+        }
+
+        .back-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(74, 108, 247, 0.1);
+        }
+
+        /* Search input */
+        .search-container {
+            margin-top: 1rem;
+        }
+
+        .model-search {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(74, 108, 247, 0.2);
+            border-radius: var(--card-radius);
+            padding: 10px 16px;
+            color: var(--text);
+            font-size: 0.95rem;
+            width: 100%;
+            transition: var(--transition);
+        }
+
+        .model-search:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <header>
-        <h1>> Bug Fixer / Patcher Mode</h1>
-        <p class="tag">/* No CSS files. No bloat. Just fixes. */</p>
-    </header>
-
-    <div class="grid">
-        <!-- GRID LAYOUT (NO CSS FILES) -->
-        <div class="box">
-            <h2>> Patch Notes</h2>
-            <ul>
-                <li>Fixed critical grammar bug</li>
-                <li>Patched layout overflow</li>
-                <li>Optimized grid render</li>
-            </ul>
-        </div>
-
-        <div class="box">
-            <h2>> Quick Fixes</h2>
-            <ul>
-                <li><a href="#">[Fix] Typo in line 42</a></li>
-                <li><a href="#">[Patch] Broken link</a></li>
-                <li><a href="#">[Update] Security patch</a></li>
-            </ul>
-        </div>
-
-        <div class="box">
-            <h2>> Status</h2>
-            <p>> System: <span style="color: lime;">Stable</span></p>
-            <p>> Last patch: <span style="color: #0f0;">2024-05-30</span></p>
-        </div>
+    <div class="container">
+        <header>
+            <h1>Firmware Pro Unbrick</h1>
+            <p class="subtitle">Bypass files and firmware for recovering bricked devices</p>
+        </header>
+        
+        <main>
+            <div class="grid">
+                <!-- Samsung Card -->
+                <div class="card">
+                    <h3>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M3 3h18v18H3V3zm4.73 15.04c.4.85 1.19 1.55 2.54 1.55 1.5 0 2.53-.8 2.53-2.55v-5.78h-1.7V17.6c0 .86-.35 1.08-.9 1.08-.58 0-.82-.4-1.09-.87l-1.38.83z"/>
+                        </svg>
+                        Samsung
+                    </h3>
+                    
+                    <ul class="firmware-list">
+                        
+                            
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M5 20h14v-2H5v2zm0-10h4v6h6v-6h4l-7-7-7 7z"/>
+                                </svg>
+                                Samsung Firmware Fix Edition
+                            </a>
+                        </li>
+                        <li>
+                            <div class="search-container">
+                                <input type="text" class="model-search" placeholder="Enter model (e.g. SM-G998B)" id="samsungSearch">
+                                <a href="https://basezsh.blogspot.com/search?q=" id="samsungSearchLink">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                                    </svg>
+                                    Search Firmware by Model
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Xiaomi Card -->
+                <div class="card">
+                    <h3>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+                        </svg>
+                        Xiaomi
+                    </h3>
+                    
+                    <ul class="firmware-list">
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M5 20h14v-2H5v2zm0-10h4v6h6v-6h4l-7-7-7 7z"/>
+                                </svg>
+                                Xiaomi Recovery Package
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+                                </svg>
+                                Flash Tool & Drivers
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Google Card -->
+                <div class="card">
+                    <h3>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+                        </svg>
+                        Google Pixel
+                    </h3>
+                    
+                    <ul class="firmware-list">
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M5 20h14v-2H5v2zm0-10h4v6h6v-6h4l-7-7-7 7z"/>
+                                </svg>
+                                Pixel Factory Images
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                                    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"/>
+                                </svg>
+                                Flash Utilities
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="https://mdzr.github.io/android-firmware-unbrick.html/" class="back-btn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                    </svg>
+                    Back to Home
+                </a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy;Firmware Pro Unbrick Info</p>
+        </footer>
     </div>
-
-    <footer>
-        <p class="tag">/* End of transmission */</p>
-    </footer>
+    
+    <script>
+        // Samsung model search functionality
+        const samsungSearch = document.getElementById('samsungSearch');
+        const samsungSearchLink = document.getElementById('samsungSearchLink');
+        
+        samsungSearch.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                samsungSearchLink.href = `https://basezsh.blogspot.com/search?q=Samsung+${encodeURIComponent(this.value.trim())}`;
+            } else {
+                samsungSearchLink.href = 'https://basezsh.blogspot.com/search?q=';
+            }
+        });
+    </script>
 </body>
 </html>
